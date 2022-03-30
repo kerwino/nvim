@@ -1,2 +1,4 @@
-# nvim
+# README
 Nvim configuration files
+## Uasage
+
