@@ -23,6 +23,12 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'preservim/nerdtree'
   Plug 'preservim/nerdcommenter'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'mbbill/undotree'
+  Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+  Plug 'JamshedVesuna/vim-markdown-preview'
+  Plug 'Iron-E/nvim-libmodal'
+  Plug 'Iron-E/nvim-typora'
+  Plug 'plasticboy/vim-markdown'
 call plug#end()
 "====================
 "=== Basic Editor ===
@@ -59,6 +65,7 @@ set ignorecase
 set smartcase
 set hlsearch
 set incsearch
+exec 'nohlsearch'
 set cursorline
 set cursorcolumn
 set notimeout
@@ -78,6 +85,8 @@ colorscheme gruvbox
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+
+let vim_markdown_preview_github=1
 
 "================
 "=== Bind Key ===
@@ -108,6 +117,9 @@ nnoremap N Nzz
 nnoremap <leader><CR> :nohlsearch<CR>
 
 " NERDComment
+
+" Undo tree
+nnoremap <leader>z :UndotreeToggle<CR>
 
 " NERDTree Toggle
 nnoremap <leader>e :NERDTreeToggle<CR>
@@ -162,17 +174,3 @@ function! s:show_documentation()
 endfunction
 "=====================================
 
-"------------------------------------------
-""Gnome-terminal的bash
-"进入写入模式光标变成竖线
-""------------------------------------------
-if has("autocmd")
-    au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
-      au InsertEnter,InsertChange *
-          \ if v:insertmode == 'i' |
-          \   silent execute '!echo -ne "\e[6 q"' | redraw! |
-          \ elseif v:insertmode == 'r' |
-          \   silent execute '!echo -ne "\e[4 q"' | redraw! |
-          \ endif
-        au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
-      endif
